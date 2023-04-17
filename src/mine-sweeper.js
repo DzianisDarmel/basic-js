@@ -24,82 +24,21 @@ const { NotImplementedError } = require('../extensions/index.js');
  * ]
  */
 function minesweeper(matrix) {
-  let arr = [
-      [0, 0, 0],
-      [0, 0, 0],
-      [0, 0, 0],
-  ];
+  let res = JSON.parse(JSON.stringify(matrix));
 
-  let a = 0;
-  if (matrix[0][1] === true) { a = a + 1; }
-  if (matrix[1][1] === true) { a = a + 1; }
-  if (matrix[1][0] === true) { a = a + 1; }
-  arr[0][0] = a;
-
-  let b = 0;
-  if (matrix[0][0] === true) { b = b + 1; }
-  if (matrix[0][1] === true) { b = b + 1; }
-  if (matrix[1][1] === true) { b = b + 1; }
-  if (matrix[2][0] === true) { b = b + 1; }
-  if (matrix[2][1] === true) { b = b + 1; }
-  arr[1][0] = b;
-
-
-  let c = 0;
-  if (matrix[1][0] === true) { c = c + 1; }
-  if (matrix[1][1] === true) { c = c + 1; }
-  if (matrix[2][1] === true) { c = c + 1; }
-  arr[2][0] = c;
-
-  let d = 0;
-  if (matrix[0][0] === true) { d = d + 1; }
-  if (matrix[1][0] === true) { d = d + 1; }
-  if (matrix[1][1] === true) { d = d + 1; }
-  if (matrix[1][2] === true) { d = d + 1; }
-  if (matrix[0][2] === true) { d = d + 1; }
-  arr[0][1] = d;
-
-  let e = 0;
-  if (matrix[0][0] === true) { e = e + 1; }
-  if (matrix[1][0] === true) { e = e + 1; }
-  if (matrix[2][0] === true) { e = e + 1; }
-  if (matrix[2][1] === true) { e = e + 1; }
-  if (matrix[2][2] === true) { e = e + 1; }
-  if (matrix[1][2] === true) { e = e + 1; }
-  if (matrix[0][2] === true) { e = e + 1; }
-  if (matrix[0][1] === true) { e = e + 1; }
-  arr[1][1] = e;
-
-
-  let f = 0;
-  if (matrix[1][0] === true) { f = f + 1; }
-  if (matrix[2][0] === true) { f = f + 1; }
-  if (matrix[1][1] === true) { f = f + 1; }
-  if (matrix[1][2] === true) { f = f + 1; }
-  if (matrix[2][2] === true) { f = f + 1; }
-  arr[2][1] = f;
-
-  let j = 0;
-  if (matrix[0][1] === true) { j = j + 1; }
-  if (matrix[1][1] === true) { j = j + 1; }
-  if (matrix[1][2] === true) { j = j + 1; }
-  arr[0][2] = j;
-
-  let h = 0;
-  if (matrix[0][2] === true) { h = h + 1; }
-  if (matrix[0][1] === true) { h = h + 1; }
-  if (matrix[1][1] === true) { h = h + 1; }
-  if (matrix[2][1] === true) { h = h + 1; }
-  if (matrix[2][2] === true) { h = h + 1; }
-  arr[1][2] = h;
-
-  let i = 0;
-  if (matrix[1][2] === true) { i = i + 1; }
-  if (matrix[1][1] === true) { i = i + 1; }
-  if (matrix[2][1] === true) { i = i + 1; }
-  arr[2][2] = i;
-
-  return arr;
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix[0].length; j++) {
+      let sum = 0;
+      for (let k = -1; k <= 1; k++) {
+        for (let l = -1; l <= 1; l++) {
+          if (k === 0 && l === 0) continue;
+          if (matrix[i+k] && matrix[i+k][j+l] && matrix[i+k][j+l] === true) sum++;
+        }
+      }
+      res[i][j] = sum;
+    }
+  }
+  return res;
 }
 
 module.exports = {
